@@ -15,15 +15,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 routes = [
-	require("./src/javascript/train"),
-	require("./src/javascript/predict"),
-	require("./src/javascript/eval")
+	// require("./src/javascript/train"),
+	// require("./src/javascript/predict"),
+	// require("./src/javascript/eval"),
+	require("./src/javascript/service")
 ]
-
 
 app.get("/", (req,res) => {
 	res.send({service: "JACE-ITA"})
 })
+
 routes.forEach( route => {
 	app[route.method](route.path, route.handler)
 })

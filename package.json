@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --harmony server.js --prod",
     "dev": "nodemon server.js --exec babel-node --presets babel-preset-env",
-    "lint": "eslint src/js"
+    "lint": "eslint src/js",
+    "preinstall": "rm -rf ./src/python/ita-py",
+    "postinstall": "cd src/python && git clone https://github.com/wdc-molfar/ita-py.git  && cd ../.. && cp -f ./src/python/ita-py/requirements.txt ./requirements.txt"
   },
   "author": "",
   "license": "ISC",

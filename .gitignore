@@ -40,6 +40,14 @@ build/Release
 # MITIE models directory
 MITIE-models/
 
+
+# Project misc
+src/python/ita-py/
+./requirements.txt	
+noname_uk/
+
+
+
 # Public Directory
 .public/
 

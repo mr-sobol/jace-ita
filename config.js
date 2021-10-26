@@ -13,7 +13,7 @@ module.exports = {
 		mode: 'text',
 		encoding: 'utf8',
 		pythonOptions: ['-u'],
-		scriptPath: './src/python/',
+		scriptPath: './src/python/ita-py',
 		pythonPath: (process.env.NODE_ENV && process.env.NODE_ENV == "production") ? 'python' : 'python.exe'
 	}
 }
