@@ -59,6 +59,7 @@ let task = (command, resp) => () => new Promise((resolve, reject) => {
 
 	    ner.once("error", err => {
 	    	command.error = err
+	    	console.log(command.error)
 	    	reject(command)
 	    })
 
