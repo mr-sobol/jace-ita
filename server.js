@@ -18,7 +18,9 @@ routes = [
 	// require("./src/javascript/train"),
 	// require("./src/javascript/predict"),
 	// require("./src/javascript/eval"),
-	require("./src/javascript/service")
+	require("./src/javascript/service"),
+	require("./src/javascript/exists_model"),
+
 ]
 
 app.get("/", (req,res) => {
