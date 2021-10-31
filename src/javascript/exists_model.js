@@ -8,7 +8,7 @@ module.exports = {
     		res.send({
     			model:{
     				name: req.params.name,
-    				exists: existsSync(`./${req.params.name}`)
+    				exists: existsSync(`./${config.service.workDir}/${req.params.name}`)
     			}
     		})	
     }

@@ -39,7 +39,9 @@ build/Release
 
 # MITIE models directory
 MITIE-models/
-
+.models/
+.tmp/
+.work/
 
 # Project misc
 src/python/ita-py/

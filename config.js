@@ -6,7 +6,16 @@ module.exports = {
 		lang: process.env.NER_LANG || "en",
 		mode: process.env.NODE_ENV || "development",
 		port: process.env.PORT || 3001,
-		host: process.env.HOST || "localhost"
+		host: process.env.HOST || "localhost",
+		modelDir: path.resolve("./.models"),
+		tempDir: path.resolve("./.tmp"),
+		workDir: ".work",
+		db:{
+			mongo:{
+				url: process.env.MONGO_URL || "mongodb+srv://jace:jace@ita.w4lkw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+			}
+		}
+
 	},
 
 	python: {

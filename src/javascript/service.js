@@ -3,6 +3,7 @@ const { extend, keys } = require('lodash')
 const config = require('../../config')
 const v4 = require("uuid").v4
 let  { existsSync } = require('fs')
+const path = require("path")
 
 
 let pys = {
@@ -73,7 +74,10 @@ module.exports = {
     method: "post",
     path: "/:command",
     handler: async (req, res) => {
-    		if (["predict","eval"].includes(req.params.command) && !existsSync(`./${req.body.model.name}_${req.body.model.locale}`)){
+    	console.log(path.resolve(`./${config.service.workDir}/${req.body.model.name}_${req.body.model.locale}`))
+    		if (["predict","eval"].includes(req.params.command) 
+    				&& 
+    			!existsSync(path.resolve(`./${config.service.workDir}/${req.body.model.name}_${req.body.model.locale}`)) ){
     			res.json(extend({}, req.body, { cmd: req.params.command}, {
     				result:{
     					warning:`The model "${req.body.model.name}_${req.body.model.locale}" is not available. You must train it first or import it first.`
@@ -82,7 +86,7 @@ module.exports = {
     			return
     		}
     		
-    		let command = extend({}, req.body, { cmd: req.params.command})
+    		let command = extend({}, req.body, { cmd: req.params.command, workDir:config.service.workDir})
     		queue.enqueue(task(command, res))	
     }
 }
