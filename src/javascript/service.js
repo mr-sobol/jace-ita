@@ -55,6 +55,7 @@ let task = (command, resp) => () => new Promise((resolve, reject) => {
 	    ner.once("message", message => {
 	        let data = JSON.parse(message)
 	        command.result = data
+	        console.log(data)
 	        resp.json(command)
 	        resolve(command)
 	    })

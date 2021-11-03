@@ -71,5 +71,5 @@ routes.forEach( route => {
 app.use(express.static(config.service.modelDir))
 
 app.listen(config.service.port, () => {
-  console.log(`JACE-ITA SERVICE for starts on port ${config.service.port} in ${config.service.mode} mode.`);
+  console.log(`!!!JACE-ITA SERVICE for starts on port ${config.service.port} in ${config.service.mode} mode.`);
 });

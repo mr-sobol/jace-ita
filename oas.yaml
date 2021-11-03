@@ -1,0 +1,228 @@
+openapi: "3.0.2"
+
+
+info: 
+  
+  title: "JACE-ITA. Сервіс ітеративного тренування моделей машинного навчання"
+  
+  description: "Надає можливості тренування моделей машинного навчання для розпізнавання іменованих сутностей в текстах природньої мови, можливості розпізнавання текстів та оцінювання моделей машиного навчання. Також надає послуги управління моделями (збереження, імпорт, експорт...)"
+  
+  version: "1.0.1"
+  
+  contact:
+    name: "jace-ita"
+    url: "http://localhost:3001/"
+    email: "boldak.andrey@gmail.com"
+  
+  license: 
+    name: "MIT License"
+    url: "http://localhost:8080/license.html"
+
+    
+
+servers:
+  
+  - url: "http://localhost:8080"
+    description: "Локальне розроблення"
+    
+
+components:
+  
+  
+  parameters:
+    
+    name_in_path:
+      name: name
+      description: "Назва специфікації"
+      required: true
+      in: path
+      schema:
+        type: string
+      example: servers.yaml  
+    
+  
+  schemas:
+  
+  
+    entity_type:
+      type: object
+      title: "Іменована сутність"
+      description: "Описує тип та положення в тексті іменованої сутності"
+      required:
+        - type
+        - pos
+      properties:
+        type:
+          title: "Тип іменованої сутності"
+          type: string
+        pos:
+          title: "Положення іменованої сутності в тексті"
+          description: "Стартова та кінцева позиції"     
+          items:
+            type: number
+  
+  
+    text_data_type:
+      
+      title: "Елемент даних"
+      description: "Описує один елемент даних для тренування/розпізнавання/оцінювання"     
+          
+      type: object
+      required:
+        - text
+        - entities
+      properties:
+        text: 
+          title: "Текстові данні"
+          type: string
+        entities:
+          title: "Масив іменованих сутностей"
+          items:
+            $ref: "#/components/schemas/entity_type"
+  
+  
+    req_res_type:
+      
+      title: "Тип даних для обміну з сервісом"
+      description: "Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі."
+      type: object
+      required:
+        - model
+        - data
+      properties:
+        model:
+          title: "Опис моделі"
+          type: object
+          required:
+            - name
+            - locale
+          properties:
+      
+            name:
+              title: "Ім'я моделі"
+              type: string
+            locale:
+              title: "Локалізація моделі (мова розпізнавання)"
+              type: string
+            losses:
+              title: "Масив оцінок втрат при тренуванні моделі"
+              items:
+                type: number
+            metrics:      
+              title: "Результати оцінювання моделі"
+              type: object
+              additionalProperties:
+                title: "Оцінки розпізнавання іменованої сутності певного типу"
+                type: object
+                properties:
+                  p:
+                    type: number
+                  r:
+                    type: number
+                  f: 
+                    type: number
+        data:
+          items: 
+            $ref: "#/components/schemas/text_data_type"
+    
+    
+    response_error_type:
+      type: object
+      required:
+        - error    
+      properties:
+        error:
+          type: string
+
+    response_warning_type:
+      type: object
+      required:
+        - warning    
+      properties:
+        warning:
+          type: string
+
+          
+  
+  requestBodies:
+    
+    use_model_body:
+      content:
+        application/json:
+          schema: 
+            $ref: "#/components/schemas/req_res_type"
+    
+  
+  responses:
+    
+    service_response:
+      description: fjhjhf
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/req_res_type"
+              - type: object
+                properties:
+                  result: 
+                    oneOf:
+                      - $ref: "#/components/schemas/req_res_type"
+                      - $ref: "#/components/schemas/response_error_type"
+                      - $ref: "#/components/schemas/response_warning_type"
+          
+    
+paths:
+  /:
+    get: 
+      
+      summary: "Отримати загальний опис сервісу"
+      description: "Повертає сторінку загального опису"
+      tags: 
+        - "Загальна інформація"
+      
+      responses:
+        200: 
+          description: "Успішна відповідь"
+          content:
+            text/html:
+              schema:
+                type: "string"
+              example: "Not found"
+  
+  /train:
+    post:
+      summary: "Тренування модель"
+      description: "Повертає масив оцінок втрат в процесі тренування"
+      tags: 
+        - "Використання моделей машинного навчання"
+      requestBody:
+        $ref: "#/components/requestBodies/use_model_body"  
+      responses:
+        200: 
+          $ref: "#/components/responses/service_response"    
+        
+  /predict:
+    post:
+      summary: "Розпізнавання тексту"
+      description: "Повертає розпізнані іменовані сутності"
+      tags: 
+        - "Використання моделей машинного навчання"
+      requestBody:
+        $ref: "#/components/requestBodies/use_model_body"  
+      responses:
+        200: 
+          $ref: "#/components/responses/service_response"    
+              
+  /eval:
+    post:
+      summary: "Оцінювання моделі"
+      description: "Повертає масив оцінок для типів іменованих сутностей"
+      tags: 
+        - "Використання моделей машинного навчання"
+      requestBody:
+        $ref: "#/components/requestBodies/use_model_body"  
+      responses:
+        200: 
+          $ref: "#/components/responses/service_response"    
+  
+  

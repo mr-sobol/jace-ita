@@ -9,6 +9,7 @@
     "dev": "nodemon server.js --exec babel-node --presets babel-preset-env",
     "lint": "eslint src/js",
     "preinstall": "rm -rf ./src/python/ita-py",
+    "docs:oas": "widdershins -e .widdershins.yml  oas.yaml -o docs/oas/README.md",
     "postinstall": "cd src/python && git clone https://github.com/wdc-molfar/ita-py.git  && cd ../.. && cp -f ./src/python/ita-py/requirements.txt ./requirements.txt"
   },
   "author": "",
@@ -44,6 +45,7 @@
     "babel-preset-env": "^1.7.0",
     "elegant-spinner": "^2.0.0",
     "log-update": "^4.0.0",
-    "split-file": "^2.2.1"
+    "split-file": "^2.2.1",
+    "widdershins": "^4.0.1"
   }
 }
