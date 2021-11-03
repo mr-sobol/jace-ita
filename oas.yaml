@@ -29,17 +29,6 @@ servers:
 components:
   
   
-  parameters:
-    
-    name_in_path:
-      name: name
-      description: "Назва специфікації"
-      required: true
-      in: path
-      schema:
-        type: string
-      example: servers.yaml  
-    
   
   schemas:
   
@@ -52,9 +41,11 @@ components:
         - type
         - pos
       properties:
-        type:
-          title: "Тип іменованої сутності"
+        "type":
           type: string
+          title: "Тип іменованої сутності"
+          description: "Тип іменованої сутності"
+          
         pos:
           title: "Положення іменованої сутності в тексті"
           description: "Стартова та кінцева позиції"     
@@ -73,10 +64,10 @@ components:
         - entities
       properties:
         text: 
-          title: "Текстові данні"
+          description: "Текстові данні"
           type: string
         entities:
-          title: "Масив іменованих сутностей"
+          description: "Масив іменованих сутностей"
           items:
             $ref: "#/components/schemas/entity_type"
   
@@ -91,7 +82,7 @@ components:
         - data
       properties:
         model:
-          title: "Опис моделі"
+          description: "Опис моделі"
           type: object
           required:
             - name
@@ -99,20 +90,20 @@ components:
           properties:
       
             name:
-              title: "Ім'я моделі"
+              description: "Ім'я моделі"
               type: string
             locale:
-              title: "Локалізація моделі (мова розпізнавання)"
+              description: "Локалізація моделі (мова розпізнавання)"
               type: string
             losses:
-              title: "Масив оцінок втрат при тренуванні моделі"
+              description: "Масив оцінок втрат при тренуванні моделі"
               items:
                 type: number
             metrics:      
-              title: "Результати оцінювання моделі"
+              description: "Результати оцінювання моделі"
               type: object
               additionalProperties:
-                title: "Оцінки розпізнавання іменованої сутності певного типу"
+                description: "Оцінки розпізнавання іменованої сутності певного типу"
                 type: object
                 properties:
                   p:

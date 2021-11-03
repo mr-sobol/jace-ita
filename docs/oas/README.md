@@ -636,7 +636,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|type|string|true|none|none|
+|type|string|true|none|Тип іменованої сутності|
 |pos|array|true|none|Стартова та кінцева позиції|
 
 <h2 id="tocS_text_data_type">text_data_type</h2>
@@ -667,8 +667,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|text|string|true|none|none|
-|entities|array|true|none|none|
+|text|string|true|none|Текстові данні|
+|entities|array|true|none|Масив іменованих сутностей|
 
 <h2 id="tocS_req_res_type">req_res_type</h2>
 <!-- backwards compatibility -->
@@ -721,12 +721,12 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|model|object|true|none|none|
-|» name|string|true|none|none|
-|» locale|string|true|none|none|
-|» losses|array|false|none|none|
-|» metrics|object|false|none|none|
-|»» Оцінки розпізнавання іменованої сутності певного типу|object|false|none|none|
+|model|object|true|none|Опис моделі|
+|» name|string|true|none|Ім'я моделі|
+|» locale|string|true|none|Локалізація моделі (мова розпізнавання)|
+|» losses|array|false|none|Масив оцінок втрат при тренуванні моделі|
+|» metrics|object|false|none|Результати оцінювання моделі|
+|»» **additionalProperties**|object|false|none|Оцінки розпізнавання іменованої сутності певного типу|
 |»»» p|number|false|none|none|
 |»»» r|number|false|none|none|
 |»»» f|number|false|none|none|
