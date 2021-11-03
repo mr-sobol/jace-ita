@@ -35,17 +35,11 @@ License: <a href="http://localhost:8080/license.html">MIT License</a>
 
 > Code samples
 
-```http
-GET / HTTP/1.1
-Accept: text/html
-Host: localhost:8080
-
-```
 
 ```javascript
 import axios from "axios";
 
-const options = {method: 'GET', url: 'http://localhost:8080/', headers: {Accept: 'text/html'}};
+const options = {method: 'GET', url: 'http://localhost:3001/', headers: {Accept: 'text/html'}};
 
 axios.request(options).then(function (response) {
   console.log(response.data);
@@ -84,15 +78,7 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /train HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 202
 
-{"model":{"name":"string","locale":"string","losses":[0],"metrics":{"property1":{"p":0,"r":0,"f":0},"property2":{"p":0,"r":0,"f":0}}},"data":[{"text":"string","entities":[{"type":"string","pos":[0]}]}]}
-```
 
 ```javascript
 import axios from "axios";
@@ -102,13 +88,55 @@ const options = {
   url: 'http://localhost:8080/train',
   headers: {'Content-Type': 'application/json', Accept: 'application/json'},
   data: {
-    model: {
-      name: 'string',
-      locale: 'string',
-      losses: [0],
-      metrics: {property1: {p: 0, r: 0, f: 0}, property2: {p: 0, r: 0, f: 0}}
+    "model": {
+      "name": "413ijapd9z8_11",
+      "locale": "uk"
     },
-    data: [{text: 'string', entities: [{type: 'string', pos: [0]}]}]
+    "data": [
+      {
+        "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+        "entities": []
+      },
+      {
+        "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " літак Віталія Хомутинніка",
+        "entities": [
+          {
+            "type": "PERSON",
+            "pos": [
+              15,
+              25
+            ],
+            "nestedIn": [
+              "subSentence"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+        "entities": [
+          {
+            "type": "PERSON",
+            "pos": [
+              81,
+              91
+            ],
+            "nestedIn": [
+              "subSentence"
+            ]
+          }
+        ]
+      }
+    ]
   }
 };
 
@@ -130,32 +158,49 @@ axios.request(options).then(function (response) {
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
+      "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
       "entities": [
         {
-          "type": "string",
+          "type": "PERSON",
           "pos": [
-            0
+            15,
+            25
+          ],
+          "nestedIn": [
+            "subSentence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+      "entities": [
+        {
+          "type": "PERSON",
+          "pos": [
+            81,
+            91
+          ],
+          "nestedIn": [
+            "subSentence"
           ]
         }
       ]
@@ -177,70 +222,162 @@ axios.request(options).then(function (response) {
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
+      "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
       "entities": [
         {
-          "type": "string",
+          "type": "PERSON",
           "pos": [
-            0
+            15,
+            25
+          ],
+          "nestedIn": [
+            "subSentence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+      "entities": [
+        {
+          "type": "PERSON",
+          "pos": [
+            81,
+            91
+          ],
+          "nestedIn": [
+            "subSentence"
           ]
         }
       ]
     }
   ],
+  "cmd": "train",
+  "workDir": ".work",
+  "_id": "64f3cb92-91ed-495e-81dd-b4feb7a9ca7a",
   "result": {
     "model": {
-      "name": "string",
-      "locale": "string",
+      "name": "413ijapd9z8_11",
+      "locale": "uk",
       "losses": [
-        0
-      ],
-      "metrics": {
-        "property1": {
-          "p": 0,
-          "r": 0,
-          "f": 0
-        },
-        "property2": {
-          "p": 0,
-          "r": 0,
-          "f": 0
-        }
-      }
+        2.8516662620657643e-10,
+        1.9999518152968816e-11,
+        8.843616670745275e-14,
+        5.960763079332696e-13,
+        4.41737591707591e-13,
+        1.720681694490366e-11,
+        5.419595893077769e-14,
+        7.124316691272642e-18,
+        3.005279446814938e-16,
+        5.486336935016558e-14,
+        2.8904606079119365e-14,
+        2.500361111621608e-17,
+        6.599091476140698e-16,
+        5.575000984853649e-16,
+        1.9167474007464207e-14,
+        4.478597065167003e-17,
+        5.876706266051261e-16,
+        1.302613974793903e-16,
+        2.4533959015360344e-13,
+        1.6979998303237087e-18,
+        1.5972610548080238e-15,
+        1.164000183108864e-14,
+        1.5974170080153159e-16,
+        7.55049314374574e-16,
+        1.660120783323992e-12,
+        4.993328234136964e-17,
+        8.880231581167382e-16,
+        1.1399758715922978e-16,
+        7.841145283351029e-19,
+        1.5891710853368774e-18,
+        7.602289903839921e-15,
+        3.893656098288174e-18,
+        5.074497254099991e-16,
+        8.727640933273373e-14,
+        4.513161407959814e-16,
+        8.225111201260867e-16,
+        1.0674964342295493e-13,
+        1.1670989909956426e-14,
+        1.1535640246199787e-15,
+        1.1471819425397362e-16,
+        5.861170244614971e-14,
+        4.1256871737018027e-16,
+        8.654413897099205e-16,
+        8.308887279465393e-15,
+        5.999102658661955e-13,
+        4.488541694057306e-16,
+        1.6050754917363336e-15,
+        2.0847534254075516e-16,
+        8.879291705459109e-16,
+        8.137069112223871e-15
+      ]
     },
     "data": [
       {
-        "text": "string",
+        "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+        "entities": []
+      },
+      {
+        "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " літак Віталія Хомутинніка",
         "entities": [
           {
-            "type": "string",
+            "type": "PERSON",
             "pos": [
-              0
+              15,
+              25
+            ],
+            "nestedIn": [
+              "subSentence"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+        "entities": [
+          {
+            "type": "PERSON",
+            "pos": [
+              81,
+              91
+            ],
+            "nestedIn": [
+              "subSentence"
             ]
           }
         ]
       }
-    ]
+    ],
+    "cmd": "train",
+    "workDir": ".work",
+    "_id": "64f3cb92-91ed-495e-81dd-b4feb7a9ca7a"
   }
 }
 ```
@@ -249,9 +386,7 @@ axios.request(options).then(function (response) {
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|fjhjhf|Inline|
-
-<h3 id="post__train-responseschema">Response Schema</h3>
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Відповідь сервісу|[response_type](#schemaresponse_type)|
 
 <aside class="success">
 This operation does not require authentication
@@ -261,16 +396,6 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /predict HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 202
-
-{"model":{"name":"string","locale":"string","losses":[0],"metrics":{"property1":{"p":0,"r":0,"f":0},"property2":{"p":0,"r":0,"f":0}}},"data":[{"text":"string","entities":[{"type":"string","pos":[0]}]}]}
-```
-
 ```javascript
 import axios from "axios";
 
@@ -279,13 +404,26 @@ const options = {
   url: 'http://localhost:8080/predict',
   headers: {'Content-Type': 'application/json', Accept: 'application/json'},
   data: {
-    model: {
-      name: 'string',
-      locale: 'string',
-      losses: [0],
-      metrics: {property1: {p: 0, r: 0, f: 0}, property2: {p: 0, r: 0, f: 0}}
+    "model": {
+      "name": "413ijapd9z8_11",
+      "locale": "uk"
     },
-    data: [{text: 'string', entities: [{type: 'string', pos: [0]}]}]
+    "data": [
+      {
+        "id": "81bb8f24-a72b-4a30-9850-b4fe3bbb1298",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+        "entities": []
+      },
+      {
+        "id": "0158c01c-80fe-46fc-a910-a9927c6e2ec6",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " літак Віталія Хомутинніка",
+        "entities": []
+      }
+    ]
   }
 };
 
@@ -307,35 +445,23 @@ axios.request(options).then(function (response) {
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
-      "entities": [
-        {
-          "type": "string",
-          "pos": [
-            0
-          ]
-        }
-      ]
+      "id": "81bb8f24-a72b-4a30-9850-b4fe3bbb1298",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "0158c01c-80fe-46fc-a910-a9927c6e2ec6",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
+      "entities": []
     }
   ]
 }
@@ -354,70 +480,61 @@ axios.request(options).then(function (response) {
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
-      "entities": [
-        {
-          "type": "string",
-          "pos": [
-            0
-          ]
-        }
-      ]
+      "id": "81bb8f24-a72b-4a30-9850-b4fe3bbb1298",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "0158c01c-80fe-46fc-a910-a9927c6e2ec6",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
+      "entities": []
     }
   ],
+  "cmd": "predict",
+  "workDir": ".work",
+  "_id": "70c644e0-04ea-422a-b8a3-86f72593f4c7",
   "result": {
     "model": {
-      "name": "string",
-      "locale": "string",
-      "losses": [
-        0
-      ],
-      "metrics": {
-        "property1": {
-          "p": 0,
-          "r": 0,
-          "f": 0
-        },
-        "property2": {
-          "p": 0,
-          "r": 0,
-          "f": 0
-        }
-      }
+      "name": "413ijapd9z8_11",
+      "locale": "uk"
     },
     "data": [
       {
-        "text": "string",
+        "id": "81bb8f24-a72b-4a30-9850-b4fe3bbb1298",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+        "entities": []
+      },
+      {
+        "id": "0158c01c-80fe-46fc-a910-a9927c6e2ec6",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " літак Віталія Хомутинніка",
         "entities": [
           {
-            "type": "string",
+            "type": "PERSON",
             "pos": [
-              0
-            ]
+              15,
+              25
+            ],
+            "score": 1
           }
         ]
       }
-    ]
+    ],
+    "cmd": "predict",
+    "workDir": ".work",
+    "_id": "70c644e0-04ea-422a-b8a3-86f72593f4c7"
   }
 }
 ```
@@ -426,9 +543,7 @@ axios.request(options).then(function (response) {
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|fjhjhf|Inline|
-
-<h3 id="post__predict-responseschema">Response Schema</h3>
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Відповідь сервісу|[response_type](#schemaresponse_type)|
 
 <aside class="success">
 This operation does not require authentication
@@ -438,16 +553,6 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /eval HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 202
-
-{"model":{"name":"string","locale":"string","losses":[0],"metrics":{"property1":{"p":0,"r":0,"f":0},"property2":{"p":0,"r":0,"f":0}}},"data":[{"text":"string","entities":[{"type":"string","pos":[0]}]}]}
-```
-
 ```javascript
 import axios from "axios";
 
@@ -456,13 +561,55 @@ const options = {
   url: 'http://localhost:8080/eval',
   headers: {'Content-Type': 'application/json', Accept: 'application/json'},
   data: {
-    model: {
-      name: 'string',
-      locale: 'string',
-      losses: [0],
-      metrics: {property1: {p: 0, r: 0, f: 0}, property2: {p: 0, r: 0, f: 0}}
+    "model": {
+      "name": "413ijapd9z8_11",
+      "locale": "uk"
     },
-    data: [{text: 'string', entities: [{type: 'string', pos: [0]}]}]
+    "data": [
+      {
+        "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+        "entities": []
+      },
+      {
+        "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " літак Віталія Хомутинніка",
+        "entities": [
+          {
+            "type": "PERSON",
+            "pos": [
+              15,
+              25
+            ],
+            "nestedIn": [
+              "subSentence"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+        "entities": [
+          {
+            "type": "PERSON",
+            "pos": [
+              81,
+              91
+            ],
+            "nestedIn": [
+              "subSentence"
+            ]
+          }
+        ]
+      }
+    ]
   }
 };
 
@@ -484,32 +631,49 @@ axios.request(options).then(function (response) {
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
+      "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
       "entities": [
         {
-          "type": "string",
+          "type": "PERSON",
           "pos": [
-            0
+            15,
+            25
+          ],
+          "nestedIn": [
+            "subSentence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+      "entities": [
+        {
+          "type": "PERSON",
+          "pos": [
+            81,
+            91
+          ],
+          "nestedIn": [
+            "subSentence"
           ]
         }
       ]
@@ -531,70 +695,117 @@ axios.request(options).then(function (response) {
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
+      "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
       "entities": [
         {
-          "type": "string",
+          "type": "PERSON",
           "pos": [
-            0
+            15,
+            25
+          ],
+          "nestedIn": [
+            "subSentence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+      "entities": [
+        {
+          "type": "PERSON",
+          "pos": [
+            81,
+            91
+          ],
+          "nestedIn": [
+            "subSentence"
           ]
         }
       ]
     }
   ],
+  "cmd": "eval",
+  "workDir": ".work",
+  "_id": "b3081861-e0d1-4fc2-b5b0-0a0965bac828",
   "result": {
     "model": {
-      "name": "string",
-      "locale": "string",
-      "losses": [
-        0
-      ],
+      "name": "413ijapd9z8_11",
+      "locale": "uk",
       "metrics": {
-        "property1": {
-          "p": 0,
-          "r": 0,
-          "f": 0
-        },
-        "property2": {
-          "p": 0,
-          "r": 0,
-          "f": 0
+        "PERSON": {
+          "p": 100,
+          "r": 100,
+          "f": 100
         }
       }
     },
     "data": [
       {
-        "text": "string",
+        "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+        "entities": []
+      },
+      {
+        "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": " літак Віталія Хомутинніка",
         "entities": [
           {
-            "type": "string",
+            "type": "PERSON",
             "pos": [
-              0
+              15,
+              25
+            ],
+            "nestedIn": [
+              "subSentence"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+        "node": "subSentence",
+        "concept": "SYNTAX",
+        "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+        "entities": [
+          {
+            "type": "PERSON",
+            "pos": [
+              81,
+              91
+            ],
+            "nestedIn": [
+              "subSentence"
             ]
           }
         ]
       }
-    ]
+    ],
+    "cmd": "eval",
+    "workDir": ".work",
+    "_id": "b3081861-e0d1-4fc2-b5b0-0a0965bac828"
   }
 }
 ```
@@ -603,9 +814,7 @@ axios.request(options).then(function (response) {
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|fjhjhf|Inline|
-
-<h3 id="post__eval-responseschema">Response Schema</h3>
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Відповідь сервісу|[response_type](#schemaresponse_type)|
 
 <aside class="success">
 This operation does not require authentication
@@ -622,10 +831,8 @@ This operation does not require authentication
 
 ```json
 {
-  "type": "string",
-  "pos": [
-    0
-  ]
+  "type": "PERSON",
+  "pos": [ 81, 91 ]
 }
 
 ```
@@ -648,13 +855,14 @@ This operation does not require authentication
 
 ```json
 {
-  "text": "string",
+  "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+  "node": "subSentence",
+  "concept": "SYNTAX",
+  "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
   "entities": [
     {
-      "type": "string",
-      "pos": [
-        0
-      ]
+      "type": "PERSON",
+      "pos": [ 81, 91 ]
     }
   ]
 }
@@ -680,32 +888,49 @@ This operation does not require authentication
 ```json
 {
   "model": {
-    "name": "string",
-    "locale": "string",
-    "losses": [
-      0
-    ],
-    "metrics": {
-      "property1": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      },
-      "property2": {
-        "p": 0,
-        "r": 0,
-        "f": 0
-      }
-    }
+    "name": "413ijapd9z8_11",
+    "locale": "uk"
   },
   "data": [
     {
-      "text": "string",
+      "id": "f4e650af-d385-4a02-870c-de1d9c849856",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній",
+      "entities": []
+    },
+    {
+      "id": "39c7ef57-b87d-43de-b1ac-d0e6c61bccc3",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": " літак Віталія Хомутинніка",
       "entities": [
         {
-          "type": "string",
+          "type": "PERSON",
           "pos": [
-            0
+            15,
+            25
+          ],
+          "nestedIn": [
+            "subSentence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9",
+      "node": "subSentence",
+      "concept": "SYNTAX",
+      "text": "Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка",
+      "entities": [
+        {
+          "type": "PERSON",
+          "pos": [
+            81,
+            91
+          ],
+          "nestedIn": [
+            "subSentence"
           ]
         }
       ]
@@ -715,7 +940,7 @@ This operation does not require authentication
 
 ```
 
-Тип даних для обміну з сервісом
+Тип даних для обміну з сервісом.
 
 ### Properties
 
@@ -732,6 +957,14 @@ This operation does not require authentication
 |»»» f|number|false|none|none|
 |data|array|true|none|none|
 
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|locale|en|
+|locale|uk|
+|locale|ru|
+
 <h2 id="tocS_response_error_type">response_error_type</h2>
 <!-- backwards compatibility -->
 <a id="schemaresponse_error_type"></a>
@@ -745,12 +978,13 @@ This operation does not require authentication
 }
 
 ```
+Помилкова відповідь
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|error|string|true|none|none|
+|error|string|true|none|Повідомлення про помилку|
 
 <h2 id="tocS_response_warning_type">response_warning_type</h2>
 <!-- backwards compatibility -->
@@ -759,16 +993,53 @@ This operation does not require authentication
 <a id="tocSresponse_warning_type"></a>
 <a id="tocsresponse_warning_type"></a>
 
-```json
-{
-  "warning": "string"
-}
 
-```
+Попереджувальна відповідь
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|warning|string|true|none|none|
+|warning|string|true|none|Повідомлення про попередження|
+
+<h2 id="tocS_response_type">response_type</h2>
+<!-- backwards compatibility -->
+<a id="schemaresponse_type"></a>
+<a id="schema_response_type"></a>
+<a id="tocSresponse_type"></a>
+<a id="tocsresponse_type"></a>
+
+
+### Properties
+
+allOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[req_res_type](#schemareq_res_type)|false|none|Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі.|
+
+and
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|object|false|none|none|
+|» result|any|false|none|Результат оброблення|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|[req_res_type](#schemareq_res_type)|false|none|Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі.|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|[response_error_type](#schemaresponse_error_type)|false|none|none|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|[response_warning_type](#schemaresponse_warning_type)|false|none|none|
 

@@ -51,13 +51,15 @@ components:
           description: "Стартова та кінцева позиції"     
           items:
             type: number
-  
+          minItems: 2
+          maxItems: 2
+      
+ 
   
     text_data_type:
       
       title: "Елемент даних"
       description: "Описує один елемент даних для тренування/розпізнавання/оцінювання"     
-          
       type: object
       required:
         - text
@@ -71,10 +73,9 @@ components:
           items:
             $ref: "#/components/schemas/entity_type"
   
-  
     req_res_type:
       
-      title: "Тип даних для обміну з сервісом"
+      title: "Тип даних для обміну з сервісом."
       description: "Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі."
       type: object
       required:
@@ -95,6 +96,10 @@ components:
             locale:
               description: "Локалізація моделі (мова розпізнавання)"
               type: string
+              enum:
+                - en
+                - uk
+                - ru
             losses:
               description: "Масив оцінок втрат при тренуванні моделі"
               items:
@@ -115,24 +120,41 @@ components:
         data:
           items: 
             $ref: "#/components/schemas/text_data_type"
-    
+      
+
+            
     
     response_error_type:
+      title: "Помилкова відповідь"
       type: object
       required:
         - error    
       properties:
         error:
+          description: "Повідомлення про помилку"
           type: string
 
     response_warning_type:
+      title: "Попереджувальна відповідь"
       type: object
       required:
         - warning    
       properties:
         warning:
+          description: "Повідомлення про попередження"
           type: string
 
+    response_type:
+      allOf:
+        - $ref: "#/components/schemas/req_res_type"
+        - type: object
+          properties:
+            result: 
+              description: "Результат оброблення"
+              oneOf:
+                - $ref: "#/components/schemas/req_res_type"
+                - $ref: "#/components/schemas/response_error_type"
+                - $ref: "#/components/schemas/response_warning_type"
           
   
   requestBodies:
@@ -142,25 +164,10 @@ components:
         application/json:
           schema: 
             $ref: "#/components/schemas/req_res_type"
+            
     
   
-  responses:
-    
-    service_response:
-      description: fjhjhf
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/req_res_type"
-              - type: object
-                properties:
-                  result: 
-                    oneOf:
-                      - $ref: "#/components/schemas/req_res_type"
-                      - $ref: "#/components/schemas/response_error_type"
-                      - $ref: "#/components/schemas/response_warning_type"
-          
+            
     
 paths:
   /:
@@ -187,10 +194,174 @@ paths:
       tags: 
         - "Використання моделей машинного навчання"
       requestBody:
-        $ref: "#/components/requestBodies/use_model_body"  
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/req_res_type"
+            example:
+                  model:
+                    name: 413ijapd9z8_11
+                    locale: uk
+                  data:
+      
+                    - id: f4e650af-d385-4a02-870c-de1d9c849856
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                      entities: []
+                    - id: 39c7ef57-b87d-43de-b1ac-d0e6c61bccc3
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' літак Віталія Хомутинніка'
+                      entities:
+                        - type: PERSON
+                          pos:
+                            - 15
+                            - 25
+                          nestedIn:
+                            - subSentence
+                    - id: ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9
+                      node: subSentence
+                      concept: SYNTAX
+                      text: Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка
+                      entities:
+                        - type: PERSON
+                          pos:
+                            - 81
+                            - 91
+                          nestedIn:
+                            - subSentence
+
       responses:
         200: 
-          $ref: "#/components/responses/service_response"    
+          description: "Відповідь сервісу"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/response_type"
+                example:
+                  model:
+                    name: 413ijapd9z8_11
+                    locale: uk
+                  data:
+      
+                    - id: f4e650af-d385-4a02-870c-de1d9c849856
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                      entities: []
+                    - id: 39c7ef57-b87d-43de-b1ac-d0e6c61bccc3
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' літак Віталія Хомутинніка'
+                      entities:
+                        - type: PERSON
+                          pos:
+                            - 15
+                            - 25
+                          nestedIn:
+                            - subSentence
+                    - id: ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9
+                      node: subSentence
+                      concept: SYNTAX
+                      text: Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка
+                      entities:
+                        - type: PERSON
+                          pos:
+                            - 81
+                            - 91
+                          nestedIn:
+                            - subSentence
+                  cmd: train
+                  workDir: .work
+                  _id: 64f3cb92-91ed-495e-81dd-b4feb7a9ca7a
+                  result:
+                    model:
+                      name: 413ijapd9z8_11
+                      locale: uk
+                      losses:
+                        - 2.8516662620657643e-10
+                        - 1.9999518152968816e-11
+                        - 8.843616670745275e-14
+                        - 5.960763079332696e-13
+                        - 4.41737591707591e-13
+                        - 1.720681694490366e-11
+                        - 5.419595893077769e-14
+                        - 7.124316691272642e-18
+                        - 3.005279446814938e-16
+                        - 5.486336935016558e-14
+                        - 2.8904606079119365e-14
+                        - 2.500361111621608e-17
+                        - 6.599091476140698e-16
+                        - 5.575000984853649e-16
+                        - 1.9167474007464207e-14
+                        - 4.478597065167003e-17
+                        - 5.876706266051261e-16
+                        - 1.302613974793903e-16
+                        - 2.4533959015360344e-13
+                        - 1.6979998303237087e-18
+                        - 1.5972610548080238e-15
+                        - 1.164000183108864e-14
+                        - 1.5974170080153159e-16
+                        - 7.55049314374574e-16
+                        - 1.660120783323992e-12
+                        - 4.993328234136964e-17
+                        - 8.880231581167382e-16
+                        - 1.1399758715922978e-16
+                        - 7.841145283351029e-19
+                        - 1.5891710853368774e-18
+                        - 7.602289903839921e-15
+                        - 3.893656098288174e-18
+                        - 5.074497254099991e-16
+                        - 8.727640933273373e-14
+                        - 4.513161407959814e-16
+                        - 8.225111201260867e-16
+                        - 1.0674964342295493e-13
+                        - 1.1670989909956426e-14
+                        - 1.1535640246199787e-15
+                        - 1.1471819425397362e-16
+                        - 5.861170244614971e-14
+                        - 4.1256871737018027e-16
+                        - 8.654413897099205e-16
+                        - 8.308887279465393e-15
+                        - 5.999102658661955e-13
+                        - 4.488541694057306e-16
+                        - 1.6050754917363336e-15
+                        - 2.0847534254075516e-16
+                        - 8.879291705459109e-16
+                        - 8.137069112223871e-15
+                    data:
+                      - id: f4e650af-d385-4a02-870c-de1d9c849856
+                        node: subSentence
+                        concept: SYNTAX
+                        text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                        entities: []
+                      - id: 39c7ef57-b87d-43de-b1ac-d0e6c61bccc3
+                        node: subSentence
+                        concept: SYNTAX
+                        text: ' літак Віталія Хомутинніка'
+                        entities:
+                          - type: PERSON
+                            pos:
+                              - 15
+                              - 25
+                            nestedIn:
+                              - subSentence
+                      - id: ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9
+                        node: subSentence
+                        concept: SYNTAX
+                        text: Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка
+                        entities:
+                          - type: PERSON
+                            pos:
+                              - 81
+                              - 91
+                            nestedIn:
+                              - subSentence
+                    cmd: train
+                    workDir: .work
+                    _id: 64f3cb92-91ed-495e-81dd-b4feb7a9ca7a
+                  
         
   /predict:
     post:
@@ -199,10 +370,79 @@ paths:
       tags: 
         - "Використання моделей машинного навчання"
       requestBody:
-        $ref: "#/components/requestBodies/use_model_body"  
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/req_res_type"
+            example:
+              model:
+                name: 413ijapd9z8_11
+                locale: uk
+              data:
+                - id: 81bb8f24-a72b-4a30-9850-b4fe3bbb1298
+                  node: subSentence
+                  concept: SYNTAX
+                  text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                  entities: []
+  
+                - id: 0158c01c-80fe-46fc-a910-a9927c6e2ec6
+                  node: subSentence
+                  concept: SYNTAX
+                  text: ' літак Віталія Хомутинніка'
+                  entities: []
+    
       responses:
         200: 
-          $ref: "#/components/responses/service_response"    
+          description: "Відповідь сервісу"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/response_type"  
+                example:
+                  model:
+                    name: 413ijapd9z8_11
+                    locale: uk
+                  data:
+                    - id: 81bb8f24-a72b-4a30-9850-b4fe3bbb1298
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                      entities: []
+      
+                    - id: 0158c01c-80fe-46fc-a910-a9927c6e2ec6
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' літак Віталія Хомутинніка'
+                      entities: []
+                  cmd: predict
+                  workDir: .work
+                  _id: 70c644e0-04ea-422a-b8a3-86f72593f4c7
+                  result:
+                    model:
+                      name: 413ijapd9z8_11
+                      locale: uk
+                    data:
+                      - id: 81bb8f24-a72b-4a30-9850-b4fe3bbb1298
+                        node: subSentence
+                        concept: SYNTAX
+                        text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                        entities: []
+      
+                      - id: 0158c01c-80fe-46fc-a910-a9927c6e2ec6
+                        node: subSentence
+                        concept: SYNTAX
+                        text: ' літак Віталія Хомутинніка'
+                        entities:
+                          - type: PERSON
+                            pos:
+                              - 15
+                              - 25
+                            score: 1
+                    cmd: predict
+                    workDir: .work
+                    _id: 70c644e0-04ea-422a-b8a3-86f72593f4c7
+                  
+            
               
   /eval:
     post:
@@ -211,9 +451,127 @@ paths:
       tags: 
         - "Використання моделей машинного навчання"
       requestBody:
-        $ref: "#/components/requestBodies/use_model_body"  
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/req_res_type"
+            example:
+              model:
+                name: 413ijapd9z8_11
+                locale: uk
+              data:
+              
+                - id: f4e650af-d385-4a02-870c-de1d9c849856
+                  node: subSentence
+                  concept: SYNTAX
+                  text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                  entities: []
+                - id: 39c7ef57-b87d-43de-b1ac-d0e6c61bccc3
+                  node: subSentence
+                  concept: SYNTAX
+                  text: ' літак Віталія Хомутинніка'
+                  entities:
+                    - type: PERSON
+                      pos:
+                        - 15
+                        - 25
+                      nestedIn:
+                        - subSentence
+                - id: ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9
+                  node: subSentence
+                  concept: SYNTAX
+                  text: Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка
+                  entities:
+                    - type: PERSON
+                      pos:
+                        - 81
+                        - 91
+                      nestedIn:
+                        - subSentence
+        
       responses:
         200: 
-          $ref: "#/components/responses/service_response"    
+          description: "Відповідь сервісу"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/response_type"  
+                example:
+                  model:
+                    name: 413ijapd9z8_11
+                    locale: uk
+                  data:
+                  
+                    - id: f4e650af-d385-4a02-870c-de1d9c849856
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                      entities: []
+                    - id: 39c7ef57-b87d-43de-b1ac-d0e6c61bccc3
+                      node: subSentence
+                      concept: SYNTAX
+                      text: ' літак Віталія Хомутинніка'
+                      entities:
+                        - type: PERSON
+                          pos:
+                            - 15
+                            - 25
+                          nestedIn:
+                            - subSentence
+                    - id: ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9
+                      node: subSentence
+                      concept: SYNTAX
+                      text: Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка
+                      entities:
+                        - type: PERSON
+                          pos:
+                            - 81
+                            - 91
+                          nestedIn:
+                            - subSentence
+                  cmd: eval
+                  workDir: .work
+                  _id: b3081861-e0d1-4fc2-b5b0-0a0965bac828
+                  result:
+                    model:
+                      name: 413ijapd9z8_11
+                      locale: uk
+                      metrics:
+                        PERSON:
+                          p: 100
+                          r: 100
+                          f: 100
+                    data:
+                      - id: f4e650af-d385-4a02-870c-de1d9c849856
+                        node: subSentence
+                        concept: SYNTAX
+                        text: ' 19 лютого РНБО наклала санкції на кілька десятків фізичних осіб та компаній'
+                        entities: []
+                      - id: 39c7ef57-b87d-43de-b1ac-d0e6c61bccc3
+                        node: subSentence
+                        concept: SYNTAX
+                        text: ' літак Віталія Хомутинніка'
+                        entities:
+                          - type: PERSON
+                            pos:
+                              - 15
+                              - 25
+                            nestedIn:
+                              - subSentence
+                      - id: ebd3d01e-e0ab-487d-91bc-1f82d53cfcb9
+                        node: subSentence
+                        concept: SYNTAX
+                        text: Змінили реєстрацію і літають далі літаки колишнього нардепа і бізнесмена Віталія Хомутинніка
+                        entities:
+                          - type: PERSON
+                            pos:
+                              - 81
+                              - 91
+                            nestedIn:
+                              - subSentence
+                    cmd: eval
+                    workDir: .work
+                    _id: b3081861-e0d1-4fc2-b5b0-0a0965bac828
+                  
   
   
