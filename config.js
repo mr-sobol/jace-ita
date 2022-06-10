@@ -5,7 +5,7 @@ module.exports = {
 	service:{
 		lang: process.env.NER_LANG || "en",
 		mode: process.env.NODE_ENV || "development",
-		port: process.env.PORT || 3001,
+		port: process.env.PORT || 3002,
 		host: process.env.HOST || "localhost",
 		modelDir: path.resolve("./.models"),
 		tempDir: path.resolve("./.tmp"),
@@ -23,6 +23,6 @@ module.exports = {
 		encoding: 'utf8',
 		pythonOptions: ['-u'],
 		scriptPath: './src/python/ita-py',
-		pythonPath: (process.env.NODE_ENV && process.env.NODE_ENV == "production") ? 'python' : 'python.exe'
+		pythonPath: (process.env.NODE_ENV && process.env.NODE_ENV == "production") ? 'python3' : 'python.exe'
 	}
 }

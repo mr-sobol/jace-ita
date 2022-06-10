@@ -28,7 +28,16 @@ servers:
 
 components:
   
-  
+  parameters:
+    
+    name_in_path:
+      name: name
+      description: "Название модели"
+      required: true
+      in: path
+      schema:
+        type: string
+      example: 413ijapd9z8_11_uk  
   
   schemas:
   
@@ -72,7 +81,82 @@ components:
           description: "Масив іменованих сутностей"
           items:
             $ref: "#/components/schemas/entity_type"
-  
+
+    res_exist_type:
+
+      title: "Тип даних для обміну з сервісом."
+      description: "Описує структуру даних, які передаються у відповідь на запит по наявності моделі"
+      type: object
+      required:
+        - model
+      properties:
+        model:
+          description: "Наявність моделі"
+          type: object
+          required:
+            - name
+            - exists
+          properties:
+      
+            name:
+              description: "Ім'я моделі"
+              type: string
+            locale:
+              description: "Модель знайдена"
+              type: boolean
+
+    req_model_type:
+
+      title: "Тип даних для обміну з сервісом."
+      description: "Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі."
+      type: object
+      required:
+        - model
+      properties:
+        model:
+          description: "Опис моделі"
+          type: object
+          required:
+            - name
+            - locale
+            - client
+          properties:
+      
+            name:
+              description: "Ім'я моделі"
+              type: string
+            locale:
+              description: "Локалізація моделі (мова розпізнавання)"
+              type: string
+              enum:
+                - en
+                - uk
+                - ru
+            client:
+              description: "Масив оцінок втрат при тренуванні моделі"
+              type: string 
+
+    res_type_with_url:
+      title: "Посилання на модель"
+      type: object
+      required:
+        - url    
+      properties:
+        url:
+          description: "Посилання на модель"
+          type: string
+
+    res_type_with_status:
+      title: "Посилання на модель"
+      type: object
+      required:
+        - status    
+      properties:
+        status:
+          description: "Статус завдання"
+          type: string      
+
+
     req_res_type:
       
       title: "Тип даних для обміну з сервісом."
@@ -155,7 +239,17 @@ components:
                 - $ref: "#/components/schemas/req_res_type"
                 - $ref: "#/components/schemas/response_error_type"
                 - $ref: "#/components/schemas/response_warning_type"
-          
+
+    response_model_type:
+      type: object
+      properties:
+        result: 
+          description: "Результат оброблення"
+          oneOf:
+            - $ref: "#/components/schemas/res_type_with_status"
+            - $ref: "#/components/schemas/res_type_with_url"
+            - $ref: "#/components/schemas/response_error_type"
+            - $ref: "#/components/schemas/response_warning_type"      
   
   requestBodies:
     
@@ -187,6 +281,72 @@ paths:
                 type: "string"
               example: "Not found"
   
+  /model/restore:
+    post:
+      summary: "Відновлення моделі"
+      description: "Відновлення модель в системі"
+      tags: 
+        - "Доступ та відновлення в базі моделей"
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/req_model_type"
+
+      responses:
+        200: 
+          description: "Відповідь сервісу"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/response_model_type"
+
+  /model/save:
+    post:
+      summary: "Збереження моделі"
+      description: "Зберегти модель в системі"
+      tags: 
+        - "Доступ та збереження в базі моделей"
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/req_model_type"
+
+      responses:
+        200: 
+          description: "Відповідь сервісу"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/response_model_type"
+
+  /exists/model/{name}:
+    get:
+      summary: "Перевірити чи є модель за ім'ям"
+      description: "Повертає значення чи присутня модель в системі за вказаним ім'ям"
+      tags: 
+        - "Доступ до бази моделей"
+      parameters:
+        - $ref: "#/components/parameters/name_in_path"    
+      responses:
+        200: 
+          description: "Відповідь сервісу"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/res_exist_type"
+                example:
+                  model:
+                    name: 413ijapd9z8_11
+                    exists: true 
+        500:
+          description: "Відповідь сервісу у разі помилки"
+          content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/response_error_type"            
+
   /train:
     post:
       summary: "Тренування модель"

@@ -67,8 +67,8 @@ const saveModel = async params => {
 	    let result
 	    if( storedObject ){
 	      result = await Model.update(
-	      	{ "name":modelFileName, client:params.client},
-	      	{"name":modelFileName, "data":data, "client":params.client}
+	      	{ "name":modelFileName, "client":params.client},
+	      	{ "name":modelFileName, "data":data, "client":params.client}
 	      )
 	    } else {
 	      result = await Model.create({"name":modelFileName, "data":data, "client":params.client})

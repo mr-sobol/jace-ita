@@ -1,75 +1,77 @@
-const bodyParser = require('body-parser')
-const express = require('express')
-const CORS = require("cors")
-const fileUpload = require('express-fileupload');
-const mongoose = require('mongoose');
+const app = require('./src/javascript');
+const http = require('http');
+const config = require('./config');
 
-const fs = require('fs')
-const fse = require('fs-extra')
-const path = require("path")
 
-const config  = require('./config')
+/**
+ * Get port from environment and store in Express.
+ */
+const port = normalizePort(process.env.PORT || config.service.port || '8080');
+app.set('port', port);
 
-if(!fs.existsSync(config.service.modelDir)){
-	fse.mkdirs(config.service.modelDir)
+/**
+ * Create HTTP server.
+ */
+const server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
 }
 
-if(!fs.existsSync(config.service.tempDir)){
-    fse.mkdirs(config.service.tempDir)
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.fatal(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.fatal(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
 }
 
-if(!fs.existsSync(config.service.workDir)){
-    fse.mkdirs(config.service.workDir)
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  console.debug(`!!!JACE-ITA SERVICE for starts on ${bind} in ${config.service.mode} mode.`);
 }
 
-mongoose.connect(config.service.db.mongo.url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-
-const app = express();
-app.use(CORS({
-    origin: '*'
-}))
-
-app.use(fileUpload({
-        useTempFiles: true,
-        tempFileDir: config.service.modelDir,
-        limits: {
-            fileSize: 1024 * 1024 * 1024
-        }
-    }));
-
-app.use(bodyParser.text());
-
-app.use(bodyParser.urlencoded({
-        parameterLimit: 100000,
-        limit: '50mb',
-        extended: true
-    }));
-
-    app.use(bodyParser.json({
-        limit: '50mb'
-    }));
-
-
-routes = [
-	require("./src/javascript/service"),
-	require("./src/javascript/exists_model")
-]
-.concat(require("./src/javascript/model"))
-
-app.get("/", (req,res) => {
-	res.send({service: "JACE-ITA"})
-})
-
-routes.forEach( route => {
-	app[route.method](route.path, route.handler)
-})
-
-
-app.use(express.static(config.service.modelDir))
-
-app.listen(config.service.port, () => {
-  console.log(`!!!JACE-ITA SERVICE for starts on port ${config.service.port} in ${config.service.mode} mode.`);
-});
+module.exports = server

@@ -4,12 +4,17 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --no-cache --runInBand --forceExit",
     "start": "node --harmony server.js --prod",
     "dev": "nodemon server.js --exec babel-node --presets babel-preset-env",
     "lint": "eslint src/js",
     "preinstall": "rm -rf ./src/python/ita-py",
     "docs:oas": "widdershins -e .widdershins.yml  oas.yaml -o docs/oas/README.md",
+    "docs:api": "jsdoc2md  --template docs/.config/README.hbs --files src/**/*.js  > docs/api/README.md",
+    "docs:build": "npm run test && npm run docs:api && npm run docs:oas",
+    "docs:dev": " npm run docs:build && npm run remove-prism && npx vuepress dev docs",
+    "docs:prepublish": "npm run docs:build && npm run remove-prism && npx vuepress build docs",
+    "docs:gh-pages": "gh-pages.sh",
     "postinstall": "cd src/python && git clone https://github.com/wdc-molfar/ita-py.git  && cd ../.. && cp -f ./src/python/ita-py/requirements.txt ./requirements.txt"
   },
   "author": "",
@@ -22,7 +27,11 @@
     "execa": "^4.1.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "extract-zip": "^2.0.1",
+    "fs-extra": "^9.1.0",
+    "inly": "^4.0.8",
     "js-yaml": "^4.1.0",
+    "jszip": "^3.5.0",
     "lodash": "^4.17.20",
     "mime": "^2.5.2",
     "mongoose": "^6.0.12",
@@ -30,13 +39,12 @@
     "nodemon": "^2.0.6",
     "python-shell": "^2.0.3",
     "queue-promise": "^2.1.0",
+    "swagger-stats": "^0.99.2",
+    "swagger-ui-express": "^4.4.0",
     "uuid": "^8.3.2",
     "yaml-js": "^0.3.1",
-    "zip-a-folder": "^1.1.0",
-    "extract-zip": "^2.0.1",
-    "fs-extra": "^9.1.0",
-    "inly": "^4.0.8",
-    "jszip": "^3.5.0"
+    "yamljs": "^0.3.0",
+    "zip-a-folder": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -44,8 +52,35 @@
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "elegant-spinner": "^2.0.0",
+    "jest": "^27.5.1",
+    "jest-cli": "^28.1.1",
+    "jest-html-reporters": "^2.1.7",
+    "jest-openapi": "^0.14.2",
+    "jest-stare": "^2.4.1",
     "log-update": "^4.0.0",
     "split-file": "^2.2.1",
+    "supertest": "^6.1.6",
     "widdershins": "^4.0.1"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(test).js"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov"
+    ],
+    "coverageDirectory": "./docs/.vuepress/public/coverage",
+    "reporters": [
+      "default",
+      [
+        "./node_modules/jest-html-reporters",
+        {
+          "publicPath": "./docs/.vuepress/public/testReport",
+          "filename": "test-report.html",
+          "pageTitle": "jace-ita"
+        }
+      ]
+    ]
   }
 }
