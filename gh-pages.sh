@@ -17,6 +17,6 @@ git commit -m 'deploy'
 
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f https://github.com/boldak/jace-ita master:gh-pages
+git push -f https://github.com/mr-sobol/jace-ita master:gh-pages
 
 cd -
