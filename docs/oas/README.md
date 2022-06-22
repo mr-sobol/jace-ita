@@ -1,11 +1,8 @@
 ---
-title: JACE-ITA. Сервіс ітеративного тренування моделей машинного навчання v1.0.1
+title: JACE-ITA. Сервіс ітеративного тренування моделей машинного навчання
 language_tabs:
   - http: HTTP
   - javascript: JavaScript
-language_clients:
-  - shell: curl
-  - javascript: axios
 toc_footers: []
 includes: []
 search: true
@@ -13,8 +10,6 @@ highlight_theme: darkula
 headingLevel: 2
 
 ---
-
-<!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="jace-ita-">JACE-ITA. Сервіс ітеративного тренування моделей машинного навчання v1.0.1</h1>
 
@@ -35,23 +30,22 @@ License: <a href="http://localhost:8080/license.html">MIT License</a>
 
 > Code samples
 
-```http
-GET / HTTP/1.1
-Accept: text/html
-Host: localhost:8080
-
-```
-
 ```javascript
-import axios from "axios";
+var data = null;
 
-const options = {method: 'GET', url: 'http://localhost:8080/', headers: {Accept: 'text/html'}};
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
 
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
 });
+
+xhr.open("GET", "http://localhost:8080/");
+xhr.setRequestHeader("accept", "text/html");
+
+xhr.send(data);
 ```
 
 `GET /`
@@ -63,10 +57,6 @@ axios.request(options).then(function (response) {
 > Example responses
 
 > 200 Response
-
-```
-"Not found"
-```
 
 <h3 id="get__-responses">Responses</h3>
 
@@ -84,31 +74,29 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /model/restore HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 59
-
-{"model":{"name":"string","locale":"en","client":"string"}}
-```
-
 ```javascript
-import axios from "axios";
-
-const options = {
-  method: 'POST',
-  url: 'http://localhost:8080/model/restore',
-  headers: {'Content-Type': 'application/json', Accept: 'application/json'},
-  data: {model: {name: 'string', locale: 'en', client: 'string'}}
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+var data = JSON.stringify({
+  "model": {
+    "name": "string",
+    "locale": "en",
+    "client": "string"
+  }
 });
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://localhost:8080/model/restore");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("accept", "application/json");
+
+xhr.send(data);
 ```
 
 `POST /model/restore`
@@ -163,31 +151,29 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /model/save HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 59
-
-{"model":{"name":"string","locale":"en","client":"string"}}
-```
-
 ```javascript
-import axios from "axios";
-
-const options = {
-  method: 'POST',
-  url: 'http://localhost:8080/model/save',
-  headers: {'Content-Type': 'application/json', Accept: 'application/json'},
-  data: {model: {name: 'string', locale: 'en', client: 'string'}}
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+var data = JSON.stringify({
+  "model": {
+    "name": "string",
+    "locale": "en",
+    "client": "string"
+  }
 });
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://localhost:8080/model/save");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("accept", "application/json");
+
+xhr.send(data);
 ```
 
 `POST /model/save`
@@ -242,27 +228,22 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-GET /exists/model/413ijapd9z8_11_uk HTTP/1.1
-Accept: application/json
-Host: localhost:8080
-
-```
-
 ```javascript
-import axios from "axios";
+var data = null;
 
-const options = {
-  method: 'GET',
-  url: 'http://localhost:8080/exists/model/413ijapd9z8_11_uk',
-  headers: {Accept: 'application/json'}
-};
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
 
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
 });
+
+xhr.open("GET", "http://localhost:8080/exists/model/413ijapd9z8_11_uk");
+xhr.setRequestHeader("accept", "application/json");
+
+xhr.send(data);
 ```
 
 `GET /exists/model/{name}`
@@ -315,39 +296,57 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /train HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 200
-
-{"model":{"name":"string","locale":"en","losses":[0],"metrics":{"property1":{"p":0,"r":0,"f":0},"property2":{"p":0,"r":0,"f":0}}},"data":[{"text":"string","entities":[{"type":"string","pos":[0,0]}]}]}
-```
-
 ```javascript
-import axios from "axios";
-
-const options = {
-  method: 'POST',
-  url: 'http://localhost:8080/train',
-  headers: {'Content-Type': 'application/json', Accept: 'application/json'},
-  data: {
-    model: {
-      name: 'string',
-      locale: 'en',
-      losses: [0],
-      metrics: {property1: {p: 0, r: 0, f: 0}, property2: {p: 0, r: 0, f: 0}}
-    },
-    data: [{text: 'string', entities: [{type: 'string', pos: [0, 0]}]}]
-  }
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+var data = JSON.stringify({
+  "model": {
+    "name": "string",
+    "locale": "en",
+    "losses": [
+      0
+    ],
+    "metrics": {
+      "property1": {
+        "p": 0,
+        "r": 0,
+        "f": 0
+      },
+      "property2": {
+        "p": 0,
+        "r": 0,
+        "f": 0
+      }
+    }
+  },
+  "data": [
+    {
+      "text": "string",
+      "entities": [
+        {
+          "type": "string",
+          "pos": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
 });
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://localhost:8080/train");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("accept", "application/json");
+
+xhr.send(data);
 ```
 
 `POST /train`
@@ -583,39 +582,57 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /predict HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 200
-
-{"model":{"name":"string","locale":"en","losses":[0],"metrics":{"property1":{"p":0,"r":0,"f":0},"property2":{"p":0,"r":0,"f":0}}},"data":[{"text":"string","entities":[{"type":"string","pos":[0,0]}]}]}
-```
-
 ```javascript
-import axios from "axios";
-
-const options = {
-  method: 'POST',
-  url: 'http://localhost:8080/predict',
-  headers: {'Content-Type': 'application/json', Accept: 'application/json'},
-  data: {
-    model: {
-      name: 'string',
-      locale: 'en',
-      losses: [0],
-      metrics: {property1: {p: 0, r: 0, f: 0}, property2: {p: 0, r: 0, f: 0}}
-    },
-    data: [{text: 'string', entities: [{type: 'string', pos: [0, 0]}]}]
-  }
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+var data = JSON.stringify({
+  "model": {
+    "name": "string",
+    "locale": "en",
+    "losses": [
+      0
+    ],
+    "metrics": {
+      "property1": {
+        "p": 0,
+        "r": 0,
+        "f": 0
+      },
+      "property2": {
+        "p": 0,
+        "r": 0,
+        "f": 0
+      }
+    }
+  },
+  "data": [
+    {
+      "text": "string",
+      "entities": [
+        {
+          "type": "string",
+          "pos": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
 });
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://localhost:8080/predict");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("accept", "application/json");
+
+xhr.send(data);
 ```
 
 `POST /predict`
@@ -750,39 +767,57 @@ This operation does not require authentication
 
 > Code samples
 
-```http
-POST /eval HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Host: localhost:8080
-Content-Length: 200
-
-{"model":{"name":"string","locale":"en","losses":[0],"metrics":{"property1":{"p":0,"r":0,"f":0},"property2":{"p":0,"r":0,"f":0}}},"data":[{"text":"string","entities":[{"type":"string","pos":[0,0]}]}]}
-```
-
 ```javascript
-import axios from "axios";
-
-const options = {
-  method: 'POST',
-  url: 'http://localhost:8080/eval',
-  headers: {'Content-Type': 'application/json', Accept: 'application/json'},
-  data: {
-    model: {
-      name: 'string',
-      locale: 'en',
-      losses: [0],
-      metrics: {property1: {p: 0, r: 0, f: 0}, property2: {p: 0, r: 0, f: 0}}
-    },
-    data: [{text: 'string', entities: [{type: 'string', pos: [0, 0]}]}]
-  }
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+var data = JSON.stringify({
+  "model": {
+    "name": "string",
+    "locale": "en",
+    "losses": [
+      0
+    ],
+    "metrics": {
+      "property1": {
+        "p": 0,
+        "r": 0,
+        "f": 0
+      },
+      "property2": {
+        "p": 0,
+        "r": 0,
+        "f": 0
+      }
+    }
+  },
+  "data": [
+    {
+      "text": "string",
+      "entities": [
+        {
+          "type": "string",
+          "pos": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
 });
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://localhost:8080/eval");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("accept", "application/json");
+
+xhr.send(data);
 ```
 
 `POST /eval`
@@ -971,12 +1006,9 @@ This operation does not require authentication
 
 # Schemas
 
-<h2 id="tocS_entity_type">entity_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSentity_type">entity_type</h2>
+
 <a id="schemaentity_type"></a>
-<a id="schema_entity_type"></a>
-<a id="tocSentity_type"></a>
-<a id="tocsentity_type"></a>
 
 ```json
 {
@@ -989,7 +1021,7 @@ This operation does not require authentication
 
 ```
 
-Іменована сутність
+*Іменована сутність*
 
 ### Properties
 
@@ -998,12 +1030,9 @@ This operation does not require authentication
 |type|string|true|none|Тип іменованої сутності|
 |pos|array|true|none|Стартова та кінцева позиції|
 
-<h2 id="tocS_text_data_type">text_data_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocStext_data_type">text_data_type</h2>
+
 <a id="schematext_data_type"></a>
-<a id="schema_text_data_type"></a>
-<a id="tocStext_data_type"></a>
-<a id="tocstext_data_type"></a>
 
 ```json
 {
@@ -1021,7 +1050,7 @@ This operation does not require authentication
 
 ```
 
-Елемент даних
+*Елемент даних*
 
 ### Properties
 
@@ -1030,12 +1059,9 @@ This operation does not require authentication
 |text|string|true|none|Текстові данні|
 |entities|array|true|none|Масив іменованих сутностей|
 
-<h2 id="tocS_res_exist_type">res_exist_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSres_exist_type">res_exist_type</h2>
+
 <a id="schemares_exist_type"></a>
-<a id="schema_res_exist_type"></a>
-<a id="tocSres_exist_type"></a>
-<a id="tocsres_exist_type"></a>
 
 ```json
 {
@@ -1047,7 +1073,7 @@ This operation does not require authentication
 
 ```
 
-Тип даних для обміну з сервісом.
+*Тип даних для обміну з сервісом.*
 
 ### Properties
 
@@ -1057,12 +1083,9 @@ This operation does not require authentication
 |» name|string|true|none|Ім'я моделі|
 |» locale|boolean|false|none|Модель знайдена|
 
-<h2 id="tocS_req_model_type">req_model_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSreq_model_type">req_model_type</h2>
+
 <a id="schemareq_model_type"></a>
-<a id="schema_req_model_type"></a>
-<a id="tocSreq_model_type"></a>
-<a id="tocsreq_model_type"></a>
 
 ```json
 {
@@ -1075,7 +1098,7 @@ This operation does not require authentication
 
 ```
 
-Тип даних для обміну з сервісом.
+*Тип даних для обміну з сервісом.*
 
 ### Properties
 
@@ -1094,12 +1117,9 @@ This operation does not require authentication
 |locale|uk|
 |locale|ru|
 
-<h2 id="tocS_res_type_with_url">res_type_with_url</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSres_type_with_url">res_type_with_url</h2>
+
 <a id="schemares_type_with_url"></a>
-<a id="schema_res_type_with_url"></a>
-<a id="tocSres_type_with_url"></a>
-<a id="tocsres_type_with_url"></a>
 
 ```json
 {
@@ -1108,7 +1128,7 @@ This operation does not require authentication
 
 ```
 
-Посилання на модель
+*Посилання на модель*
 
 ### Properties
 
@@ -1116,12 +1136,9 @@ This operation does not require authentication
 |---|---|---|---|---|
 |url|string|true|none|Посилання на модель|
 
-<h2 id="tocS_res_type_with_status">res_type_with_status</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSres_type_with_status">res_type_with_status</h2>
+
 <a id="schemares_type_with_status"></a>
-<a id="schema_res_type_with_status"></a>
-<a id="tocSres_type_with_status"></a>
-<a id="tocsres_type_with_status"></a>
 
 ```json
 {
@@ -1130,7 +1147,7 @@ This operation does not require authentication
 
 ```
 
-Посилання на модель
+*Посилання на модель*
 
 ### Properties
 
@@ -1138,12 +1155,9 @@ This operation does not require authentication
 |---|---|---|---|---|
 |status|string|true|none|Статус завдання|
 
-<h2 id="tocS_req_res_type">req_res_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSreq_res_type">req_res_type</h2>
+
 <a id="schemareq_res_type"></a>
-<a id="schema_req_res_type"></a>
-<a id="tocSreq_res_type"></a>
-<a id="tocsreq_res_type"></a>
 
 ```json
 {
@@ -1184,7 +1198,7 @@ This operation does not require authentication
 
 ```
 
-Тип даних для обміну з сервісом.
+*Тип даних для обміну з сервісом.*
 
 ### Properties
 
@@ -1199,7 +1213,7 @@ This operation does not require authentication
 |»»» p|number|false|none|none|
 |»»» r|number|false|none|none|
 |»»» f|number|false|none|none|
-|data|array|true|none|none|
+|»» data|array|true|none|none|
 
 #### Enumerated Values
 
@@ -1209,12 +1223,9 @@ This operation does not require authentication
 |locale|uk|
 |locale|ru|
 
-<h2 id="tocS_response_error_type">response_error_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSresponse_error_type">response_error_type</h2>
+
 <a id="schemaresponse_error_type"></a>
-<a id="schema_response_error_type"></a>
-<a id="tocSresponse_error_type"></a>
-<a id="tocsresponse_error_type"></a>
 
 ```json
 {
@@ -1223,7 +1234,7 @@ This operation does not require authentication
 
 ```
 
-Помилкова відповідь
+*Помилкова відповідь*
 
 ### Properties
 
@@ -1231,12 +1242,9 @@ This operation does not require authentication
 |---|---|---|---|---|
 |error|string|true|none|Повідомлення про помилку|
 
-<h2 id="tocS_response_warning_type">response_warning_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSresponse_warning_type">response_warning_type</h2>
+
 <a id="schemaresponse_warning_type"></a>
-<a id="schema_response_warning_type"></a>
-<a id="tocSresponse_warning_type"></a>
-<a id="tocsresponse_warning_type"></a>
 
 ```json
 {
@@ -1245,7 +1253,7 @@ This operation does not require authentication
 
 ```
 
-Попереджувальна відповідь
+*Попереджувальна відповідь*
 
 ### Properties
 
@@ -1253,12 +1261,9 @@ This operation does not require authentication
 |---|---|---|---|---|
 |warning|string|true|none|Повідомлення про попередження|
 
-<h2 id="tocS_response_type">response_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSresponse_type">response_type</h2>
+
 <a id="schemaresponse_type"></a>
-<a id="schema_response_type"></a>
-<a id="tocSresponse_type"></a>
-<a id="tocsresponse_type"></a>
 
 ```json
 {
@@ -1336,43 +1341,40 @@ This operation does not require authentication
 
 ### Properties
 
-allOf
+*allOf*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |*anonymous*|[req_res_type](#schemareq_res_type)|false|none|Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі.|
 
-and
+*and*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |*anonymous*|object|false|none|none|
 |» result|any|false|none|Результат оброблення|
 
-oneOf
+*oneOf*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |»» *anonymous*|[req_res_type](#schemareq_res_type)|false|none|Описує структуру даних, яка передається в сервіс в якості завдання. Успішний результат оброблення повертається сервісом в такій само структурі.|
 
-xor
+*xor*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |»» *anonymous*|[response_error_type](#schemaresponse_error_type)|false|none|none|
 
-xor
+*xor*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |»» *anonymous*|[response_warning_type](#schemaresponse_warning_type)|false|none|none|
 
-<h2 id="tocS_response_model_type">response_model_type</h2>
-<!-- backwards compatibility -->
+<h2 id="tocSresponse_model_type">response_model_type</h2>
+
 <a id="schemaresponse_model_type"></a>
-<a id="schema_response_model_type"></a>
-<a id="tocSresponse_model_type"></a>
-<a id="tocsresponse_model_type"></a>
 
 ```json
 {
@@ -1389,25 +1391,25 @@ xor
 |---|---|---|---|---|
 |result|any|false|none|Результат оброблення|
 
-oneOf
+*oneOf*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» *anonymous*|[res_type_with_status](#schemares_type_with_status)|false|none|none|
 
-xor
+*xor*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» *anonymous*|[res_type_with_url](#schemares_type_with_url)|false|none|none|
 
-xor
+*xor*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» *anonymous*|[response_error_type](#schemaresponse_error_type)|false|none|none|
 
-xor
+*xor*
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
