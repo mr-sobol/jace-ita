@@ -10,6 +10,14 @@ const YAML = require("js-yaml")
 let Model = require("./models/model")
 
 
+/**
+ * @param {Object} params
+ * @param {String} params.client Ідентифікатор клієнта
+ * @param {String} params.model.name Ім'я моделі
+ * @param {String} params.model.locale Мова моделі
+ * @throws {Error}
+ * @return {Promise}
+ */
 
 const prepareZip = async params => {
 
@@ -28,6 +36,14 @@ const prepareZip = async params => {
 	
 	return modelZipPath
 }
+
+/**
+ * @param {Object} params
+ * @param {String} params.client Ідентифікатор клієнта
+ * @param {String} params.model.name Ім'я моделі
+ * @param {String} params.model.locale Мова моделі
+ * @return {Promise}
+ */
 
 const unzipModel = async params => {
 
@@ -53,7 +69,13 @@ const unzipModel = async params => {
     }  
 }
 
-
+/**
+ * @param {Object} params
+ * @param {String} params.client Ідентифікатор клієнта
+ * @param {String} params.model.name Ім'я моделі
+ * @param {String} params.model.locale Мова моделі
+ * @return {Promise}
+ */
 
 const saveModel = async params => {
 	try {
@@ -103,6 +125,11 @@ module.exports = [
 	//       		res.send(data)
 	//     }
 	// },
+	/**
+	 * @param {Object} req	Запит до серверу
+	 * @param {Object} res	Відповідь від серверу
+	 * @return {Promise}
+	 */
 	{
 		    method: "post",
 		    path: "/model/save",
@@ -123,6 +150,11 @@ module.exports = [
 		    		}
 		    }		
 	},
+	/**
+	 * @param {Object} req	Запит до серверу
+	 * @param {Object} res	Відповідь від серверу
+	 * @return {Promise}
+	 */
 	{
 		    method: "post",
 		    path: "/model/restore",

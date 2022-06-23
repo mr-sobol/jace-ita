@@ -45,7 +45,12 @@ queue.on("reject", command => {
 });
 
 
-
+/**
+ * @param {Object} command
+ * @param {String} command.cmd 
+ * @param {Object} resp
+ * @return {Promise}
+ */
 
 let task = (command, resp) => () => new Promise((resolve, reject) => {
     	command = extend(command, { _id: v4() })
@@ -70,7 +75,14 @@ let task = (command, resp) => () => new Promise((resolve, reject) => {
     
 })
 
-
+/**
+ * @param {Object} req
+ * @param {String} req.body.model.name  Ім'я моделі 
+ * @param {String} req.body.model.locale  Мова моделі 
+ * @param {String} req.params.command  Команда, що має виконатись
+ * @param {Object} resp
+ * @return {Promise}
+ */
 module.exports = {
     method: "post",
     path: "/:command",

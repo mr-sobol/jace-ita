@@ -1,6 +1,14 @@
 let  { existsSync } = require('fs')
 const config = require('../../config');
 
+
+/**
+ * @param {Object} req Запит до серверу
+ * @param {String} req.params.name Назва моделі
+ * @param {Object} res Відповідь від серверу
+ * @return {Promise}
+ */
+
 module.exports = {
     method: "get",
     path: "/exists/model/:name",

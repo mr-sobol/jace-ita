@@ -1,5 +1,11 @@
 const path = require("path")
 
+/**
+ * @param {Object} path2zip Шлях до архіву
+ * @param {Object} path2dest Шлях де має розархівуватись архів
+ * @return {Promise}
+ */
+
 module.exports = (path2zip, path2dest) => new Promise( (resolve, reject) => {
 	const inly = require('inly');
 	const extract = inly(path2zip, path2dest);
