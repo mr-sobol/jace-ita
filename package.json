@@ -15,7 +15,7 @@
     "docs:build": "npm run test && npm run docs:api && npm run docs:oas",
     "docs:dev": " npm run docs:build && npm run remove-prism && npx vuepress dev docs",
     "docs:prepublish": "npm run docs:build && npm run remove-prism && npx vuepress build docs",
-    "docs:gh-pages": "gh-pages.sh",
+    "docs:gh-pages": "./gh-pages.sh",
     "postinstall": "cd src/python && git clone https://github.com/wdc-molfar/ita-py.git  && cd ../.. && cp -f ./src/python/ita-py/requirements.txt ./requirements.txt"
   },
   "author": "",

@@ -1,4 +1,4 @@
-# @molfar/jace-ita. Специфікація модуля
+# @mr-sobol/jace-ita. Специфікація модуля
 
 ## Functions
 
