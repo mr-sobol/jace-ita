@@ -12,7 +12,8 @@ module.exports = {
 		workDir: ".work",
 		db:{
 			mongo:{
-				url: process.env.MONGO_URL || "mongodb+srv://jace:jace@ita.w4lkw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+				url: process.env.MONGO_URL || "mongodb://AdminSammy:admin_sby@127.0.0.1:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+				//url: process.env.MONGO_URL || "mongodb+srv://jace:jace@ita.w4lkw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 			}
 		}
 
